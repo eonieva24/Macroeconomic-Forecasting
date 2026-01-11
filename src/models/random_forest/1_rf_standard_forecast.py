@@ -458,38 +458,42 @@ def rolling_window_forecast(df, feature_cols, train_end_date=TRAIN_END,
         Forecast results with columns: period, actual, forecast, lower_ci,
         upper_ci
     """
+    # Convert strings to datetime : make sure we on the same "metric"
     train_end = pd.to_datetime(train_end_date)
     test_end = pd.to_datetime(test_end_date)
-
+    # Define test period : forecast 2019 JAN-DEC
     test_periods = df[
-        (df['period'] > train_end) & (df['period'] <= test_end)
+        (df['period'] > train_end) & (df['period'] <= test_end) # Starts after train
     ]['period'].tolist()
-
+    # Safety in case is empty
     if len(test_periods) == 0:
         print("    Warning: No test periods found")
         return None
-
+    # Based on number of predictors
     results = []
     n_features = len(feature_cols)
-
+    # leak safe : forecast at time t
     for test_date in test_periods:
         test_date = pd.to_datetime(test_date)
-
+        # Training set only uses observations before forecast date
+        # No look ahead
         train_df = df[df['period'] < test_date]
+        # The test set is the forecasted month
         test_df = df[df['period'] == test_date]
-
+        # Safety : skip if not enough training data
         if len(train_df) < 50:
             print(f"    Warning: Insufficient training data for {test_date}")
             continue
-
+        # Safety : skip if test month is missing
         if len(test_df) == 0:
             continue
-
+        # Matrix and target for training
         X_train = train_df[feature_cols].values
         y_train = train_df['y_t'].values
+        # Extract features for each forecast
         X_test = test_df[feature_cols].values
         y_actual = test_df['y_t'].values[0]
-
+        # Pre declared parameters only, fixed
         model = create_rf_model(n_features)
         model.fit(X_train, y_train)
 
@@ -498,7 +502,7 @@ def rolling_window_forecast(df, feature_cols, train_end_date=TRAIN_END,
 
         # Check if actual is within CI
         in_ci = (y_actual >= lower_ci) and (y_actual <= upper_ci)
-
+        # Store results
         results.append({
             'period': test_date,
             'actual': y_actual,
@@ -508,7 +512,7 @@ def rolling_window_forecast(df, feature_cols, train_end_date=TRAIN_END,
             'in_ci': in_ci,
             'n_train': len(train_df)
         })
-
+    # Safety , if not enough training data
     if len(results) == 0:
         return None
 
