@@ -13,9 +13,6 @@
 *.swp
 
 # Generated outputs / processed
-data/processed/
 data_processed_backup/
-src/data/data/processed/
-results/
 outputs/
 reports/

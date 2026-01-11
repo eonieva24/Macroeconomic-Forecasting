@@ -1,0 +1,9 @@
+Country,Observations,Start_Date,End_Date,File
+Belgium,276,1997-01-01,2019-12-01,belgium_arimax.csv
+Germany,276,1997-01-01,2019-12-01,germany_arimax.csv
+Israel,276,1997-01-01,2019-12-01,israel_arimax.csv
+Korea,247,1999-06-01,2019-12-01,korea_arimax.csv
+Latvia,216,2002-01-01,2019-12-01,latvia_arimax.csv
+Lithuania,156,2007-01-01,2019-12-01,lithuania_arimax.csv
+Norway,276,1997-01-01,2019-12-01,norway_arimax.csv
+Switzerland,276,1997-01-01,2019-12-01,switzerland_arimax.csv

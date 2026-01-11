@@ -1,0 +1,9 @@
+Country,ADF,PP,Tests_Passed,Status
+Belgium,Pass,Pass,2/2,Both Stationary
+Switzerland,Fail,Fail,0/2,Both Non-Stationary
+Germany,Pass,Pass,2/2,Both Stationary
+Israel,Pass,Pass,2/2,Both Stationary
+Korea,Pass,Pass,2/2,Both Stationary
+Lithuania,Pass,Pass,2/2,Both Stationary
+Latvia,Pass,Pass,2/2,Both Stationary
+Norway,Pass,Pass,2/2,Both Stationary

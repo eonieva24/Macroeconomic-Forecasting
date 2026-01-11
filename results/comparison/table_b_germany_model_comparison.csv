@@ -1,0 +1,2 @@
+Country,rmse_sarimax,rmse_lasso,rmse_rf_2feat,rmse_rf_highdim,best_model
+Germany,0.2505768392273758,0.3172188491223524,0.2115012139113323,0.2265972277712128,RF (2 features)
