@@ -1,26 +1,21 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg
-*.egg-info/
-*.ipynb_checkpoints/
-
 # Virtual environments
 .venv/
-env/
-venv/
-ENV/
 
-# IDEs
+# IDE
 .idea/
-.vscode/
 
-# Data
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-
-# OS files
+# OS / misc
+.Rhistory
 .DS_Store
-Thumbs.db
+
+# Temp / lock
+.~lock.*
+*.swp
+
+# Generated outputs / processed
+data/processed/
+data_processed_backup/
+src/data/data/processed/
+results/
+outputs/
+reports/

@@ -1,30 +1,114 @@
-#Can ML Beat Traditional Macroeconomic Forecasts ?
+# Can ML Beat Traditional Macroeconomic Forecasts?
 
-**Author:** Elena Onieva Henrich
-**Course:** Datascience and Advanced programming 2025-2026
+**Author:** Elena Onieva Henrich  
+**Course:** Data Science and Advanced Programming 2025-2026  
 **University:** Université de Lausanne
 
-##Project proposal
-For my project i would like to test if machine learning model can outperform a stan-
-dard econometric benchmark in short-term macroeconomic forecasting. I will forecast
-quarter-ahead CPI inflation for OECD economies using a quarterly panel (1990–2024),
-or I could also just focus on one country like the US. The feature set will start with core
-indicators (inflation lags, GDP growth, unemployment, interest rates, industrial produc-
-tion) and may be modestly expanded after exploratory analysis.
-I will compare two approaches: (i) a univariate ARIMA/ARIMAX benchmark and
-(ii) a regularized linear model (Lasso) that can handle many lagged predictors while re-
-maining interpretable. I choose Lasso regression because it provides a transparent and
-interpretable framework for assessing the relative importance of macroeconomic indica-
-tors, which is essential for drawing policy-relevant insights.
-To incorporate a nonlinear ML dimension, I will implement a tree-based ensemble
-method, XGBoost. I reviewed recent studies using ML in macroeconomics, and the lit-
-erature suggests that XGBoost tends to deliver stronger predictive accuracy while main-
-taining reasonable interpretability. If time permits, I will also estimate a Random Forest
-model to compare the two machine-learning techniques; however, Random Forests are
-known to be more prone to overfitting in smaller macroeconomic datasets, which is why
-XGBoost will serve as my primary nonlinear approach.
-Evaluation will use a rolling-window scheme with out-of-sample RMSE/MAE and
-forecast-bias checks.
-Interpretation will rely on Lasso coefficient paths and stability across windows. At the
-end of the project I’d like to see if ML adds predictive value over a classical time-series
-baseline.
+---
+
+## Research Question
+
+Which forecasting methodology performs better for CPI inflation:
+- **SARIMAX** (econometric time series with exogenous variables)
+- **Random Forest** (machine learning)
+- **LASSO** (sparse linear regression)
+
+---
+
+## Project Overview
+
+This project tests whether machine learning models can outperform standard econometric benchmarks in short-term macroeconomic forecasting. I forecast CPI inflation for 8 OECD economies using monthly panel data (1996–2019, pre-COVID).
+
+**Countries:** Belgium, Germany, Israel, Korea, Latvia, Lithuania, Norway, Switzerland
+
+**Exogenous Variables:** Unemployment rate, Import prices
+
+---
+
+## Setup
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd DSAP_Foreacast_ML_vs_STAT
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+-----
+
+## Usage
+
+```bash
+python main.py
+```
+
+This runs the complete pipeline:
+
+1. Data preprocessing (load CPI, unemployment, import prices)
+1. ARIMAX/SARIMAX models (grid search, forecasting)
+1. Random Forest models (standard + Germany high-dimensional)
+1. LASSO models
+1. Final comparison across all methods
+
+-----
+
+## Expected Output
+
+- All results saved to `results/` directory
+- Forecast plots per country and model
+- Summary CSV files with RMSE, MAE metrics
+- Final comparison table in `results/comparison/`
+
+-----
+
+## Project Structure
+
+```
+DSAP_Foreacast_ML_vs_STAT/
+├── main.py                 # Entry point - runs entire pipeline
+├── README.md
+├── requirements.txt
+├── data/
+│   ├── raw/                # Original data files
+│   └── processed/          # Processed datasets
+├── src/
+│   ├── data/               # Data loading scripts
+│   │   ├── 1_load_cpi.py
+│   │   ├── 2_yoy_stationarity.py
+│   │   ├── 3_load_unemployment.py
+│   │   ├── 4_load_import_prices.py
+│   │   └── 5_prep_data_GER.py
+│   ├── models/
+│   │   ├── arimax/         # ARIMAX/SARIMAX models
+│   │   ├── random_forest/  # Random Forest models
+│   │   └── lasso/          # LASSO models
+│   └── evaluate_models/    # Final comparison
+├── results/                # Output plots and metrics
+└── notebooks/              # Exploration (optional)
+```
+
+-----
+
+## Requirements
+
+- Python 3.11+
+- pandas, numpy, scipy
+- statsmodels, pmdarima, arch
+- scikit-learn
+- matplotlib, seaborn
+
+See `requirements.txt` for full list.
+
+-----
+
+## License
+
+This project is submitted as coursework for Advanced Programming 2025.
+
